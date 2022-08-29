@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+   <div>
+     <h1 class=" " style="text-align:center"> <strong style="color:blue">VALIDE O CPF </strong></h1>
+
+   </div>
+
+   <div class="">
+     <div class="div1 divFixedCpf ">
+         <div class="form-group">
+            <form method="POST" action="" class=" p-1 mt-1 ">
+              {{form_cpf.csrf_token}}
+               <fieldset class="form-group">
+                 <div class="form-group" style="text-align:center">
+                    {{form_cpf.cpf.label(class="form-control-label")}}
+                    {% if form_cpf.cpf.errors %}
+                        {{ form_cpf.cpf(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for erro in form_cpf.cpf.errors %}
+                            <span>{{ erro }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                        {{ form_cpf.cpf(class="form-control") }}
+                    {% endif %}
+                 </div>
+                 <div class="col col2 form-group" style="text-align:center" >
+                   {{form_cpf.botao_submit_cpf(class="btn btn-primary mt-2")}}
+                 </div>
+               </fieldset>
+            </form>
+             {% if form_cpf.cpf.data %}
+                 {% if valida %}
+                    <div>
+                        <button type="button" class="btn btn-light mt-3 p-4 " STYLE="color:green"  disabled>
+                            <strong >O CPF  {{ cpf_final }}.É um CPF VÁLIDO.</strong></button></br>
+                    </div>
+                   {% else %}
+                     <div>
+                        <button type="button" class="btn btn-light mt-3 p-4 " STYLE="color:red" disabled>
+                            <strong>O CPF {{ cpf_final }}. Não é um CPF VÁLIDO.</strong></button></br>
+                    </div>
+                 {% endif %}
+             {% endif %}
+         </div>
+     </div>
+{% endblock %}
